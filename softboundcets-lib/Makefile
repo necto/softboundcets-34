@@ -1,7 +1,8 @@
-all: softboundcets_rt softboundmpx_rt
+all: softboundcets_rt softboundmpx_rt softboundcets_klee_rt.bc
 
 MPX_FLAGS=-Wall -pedantic -O3 -D__SOFTBOUNDMPX_SPATIAL 
 CFLAGS=-Wall -pedantic  -D__SOFTBOUNDCETS_SPATIAL_TEMPORAL -O3 -fno-strict-aliasing
+KLEE_CFLAGS=$(CFLAGS) -D__FOR_KLEE -target x86_64-pc-linux-gnu
 ARFLAGS=-rcs
 
 # If LLVM_GOLD is set, also build a library for use with LTO
@@ -25,6 +26,13 @@ softboundcets_rt: softboundcets.h softboundcets-checks.c softboundcets.c softbou
 	clang $(CFLAGS) -c softboundcets.c -o softboundcets.o
 	clang $(CFLAGS) -c softboundcets-wrappers.c -o softboundcets-wrappers.o
 	ar $(ARFLAGS) libsoftboundcets_rt.a softboundcets.o softboundcets-checks.o softboundcets-wrappers.o
+
+softboundcets_klee_rt.bc: softboundcets.h softboundcets-checks.c softboundcets.c softboundcets-wrappers.c mmap-stub.h mmap-stub.c
+	clang $(KLEE_CFLAGS) -c -g -emit-llvm softboundcets-checks.c -o softboundcets-checks.bc
+	clang $(KLEE_CFLAGS) -c -g -emit-llvm softboundcets.c -o softboundcets.bc
+	clang $(KLEE_CFLAGS) -c -g -emit-llvm softboundcets-wrappers.c -o softboundcets-wrappers.bc
+	clang $(KLEE_CFLAGS) -c -g -emit-llvm mmap-stub.c -o mmap-stub.bc
+	llvm-link softboundcets-checks.bc softboundcets.bc softboundcets-wrappers.bc mmap-stub.bc -o softboundcets_klee_rt.bc
 
 softboundcets_rt_lto: softboundcets.h softboundcets-checks.c softboundcets.c softboundcets-wrappers.c 
 	mkdir lto
