@@ -6,7 +6,7 @@
 #*#
 .#*
 Debug+Asserts
-*/Release+Asserts
+Release+Asserts
 klee-out-*
 klee-last
 .dir

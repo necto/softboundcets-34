@@ -14,6 +14,7 @@ int main(int argc, char** argv){
     arr[i] = rand();
   }
 
+  // Replace user inp.ut with a symbolic variable
   num = klee_int("num");
 
   
