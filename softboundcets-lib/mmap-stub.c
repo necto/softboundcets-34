@@ -14,6 +14,6 @@ void* mmap(void* addr, size_t length, int prot, int flags, int fd, off_t offset)
     assert(allocated + length < PREALLOCATED_SIZE);
     size_t start = allocated; 
     allocated += length;
-    printf("allocated %lu\n", length);
+    printf("allocated 0x%lx bytes between %p and %p\n", length, bigarray+start, bigarray+allocated);
     return &bigarray[start];
 }
