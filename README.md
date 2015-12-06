@@ -2,6 +2,9 @@ This is a README FILE for SoftBoundCETS pointer-based checking. For
 more technical details and algorithms, visit SoftBoundCETS website at
 http://www.cs.rutgers.edu/~santosh.nagarakatte/softbound/
 
+This fork aims Klee integration for automated test generation using symbolic execution. This approach
+allows to to test your application only on at development time exploring all the possible inputs and
+release a version without SoftBoundCETS performance overhead.
 
 
 Using SoftBoundCETS with LLVM+CLANG-3.4 on a x86-64 machine with Linux OS
@@ -83,6 +86,24 @@ Using SoftBoundCETS with LLVM+CLANG-3.4 on a x86-64 machine with Linux OS
    above SoftBoundCETS flags. The SoftBoundCETS pass will not add
    checks for the functions in list.txt (in the example above: it is
    parseargs and temp_test)
+
+### Symbolic testing with [Klee](http://klee.github.io/)
+
+Note: you will need quite a lot of memory. Softbounds takes more than 1GB on a 64bit machine,
+ and Klee probably needs a multiply of that, e.g. if fails on 8GB machine.
+
+   1. Make sure you have Klee in your `PATH`
+   2. Compile runtime library
+
+           cd softboundcets-lib
+           make softboundcets_klee_rt.bc
+   
+   3. Run the example test
+
+           cd ../tests
+           make test-with-klee
+
+   4. Refer to Klee documentation to inspect the generated test cases.
 
 Some NOTES
 ==========

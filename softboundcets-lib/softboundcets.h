@@ -44,12 +44,17 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include <limits.h>
-#include <sys/mman.h>
 #include <string.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <assert.h>
+
+#ifdef __FOR_KLEE
+#include "mmap-stub.h"
+#else //__FOR_KLEE
+#include <sys/mman.h>
+#endif //__FOR_KLEE
 
 
 #if 0

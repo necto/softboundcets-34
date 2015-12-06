@@ -50,5 +50,5 @@ softboundmpx_rt_lto: softboundmpx.h softboundmpx-checks.c softboundmpx.c softbou
 
 
 clean:
-	rm -rf *.o *.a *~ lto/
+	rm -rf *.o *.bc *.a *~ lto/
 

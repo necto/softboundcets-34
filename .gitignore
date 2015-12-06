@@ -1,0 +1,8 @@
+*.bc
+*.o
+*~
+softboundcets-llvm-clang34/Makefile.config
+softboundcets-llvm-clang34/Makefile.llvmbuild
+softboundcets-llvm-clang34/lib
+Debug+Asserts
+*/Release+Asserts

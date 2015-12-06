@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "mymmap.h"
+#include "mmap-stub.h"
 
 char bigarray[PREALLOCATED_SIZE];
 size_t allocated = 0;
