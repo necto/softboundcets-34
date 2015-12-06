@@ -1,3 +1,6 @@
+// A drop-in POSIX mmap function Klee-friendly replacement. Supports a single
+// mode of invocation. Allocates parts of a static array.
+
 #include <stdio.h>
 #include "mmap-stub.h"
 
