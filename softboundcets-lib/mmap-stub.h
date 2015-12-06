@@ -2,7 +2,7 @@
 #include <sys/types.h>
 #include <assert.h>
 
-#define PREALLOCATED_SIZE  1024*1024*1024UL
+#define PREALLOCATED_SIZE  2*1024*1024*1024UL
 
 #define MAP_PRIVATE 0x02
 #define MAP_ANONYMOUS 0x20
